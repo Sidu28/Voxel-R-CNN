@@ -65,7 +65,7 @@ def main():
             args.tcp_port, args.local_rank, backend='nccl'
         )
         dist_train = True
-
+    dist_train=False
     if args.batch_size is None:
         args.batch_size = cfg.OPTIMIZATION.BATCH_SIZE_PER_GPU
     else:
@@ -104,7 +104,7 @@ def main():
     train_set, train_loader, train_sampler = build_dataloader(
         dataset_cfg=cfg.DATA_CONFIG,
         class_names=cfg.CLASS_NAMES,
-        batch_size=args.batch_size,
+        batch_size=args.batch_size-1,
         dist=dist_train, workers=args.workers,
         logger=logger,
         training=True,
